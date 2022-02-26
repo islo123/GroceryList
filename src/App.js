@@ -26,8 +26,8 @@ function App() {
 
     useEffect(() => {
       onPageOpenGetList()
-      //scrollDown()
-    }, [JSON.stringify(data)])
+      scrollDown()
+    }, [JSON.stringify(data), checkIfSure])
 
   const GetNewListItem = async function(e){
     e.preventDefault()
