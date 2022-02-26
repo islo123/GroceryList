@@ -25,11 +25,8 @@ function App() {
   }
 
     useEffect(() => {
-      onPageOpenGetList();
-      if(checkIfSure) {
-        window.scrollTo(0, document.body.scrollHeight)
-      }
-      return checkIfSure
+      onPageOpenGetList()
+      scrollDown()
     }, [JSON.stringify(data), checkIfSure])
 
   const GetNewListItem = async function(e){
@@ -77,8 +74,10 @@ function App() {
     setCheckIfSure(false)
   }
 
-  const openDeleteModal = () => { 
-    setCheckIfSure(true)
+  const scrollDown = () => { 
+    if(checkIfSure) {
+      window.scrollTo(0, document.body.scrollHeight)
+    }
   }
   
 
@@ -121,7 +120,7 @@ function App() {
       </div>
       <div style={{textAlign: "center"}}>
         {
-          checkIfSure ? <div style={{backgroundColor: "red", border: "solid 4px orangered", borderRadius: "4px"}}><h3>Are you sure you want do delete all grocries</h3><button onClick={deleteAll} className="yes-btn">Yes</button><button onClick={() => {return setCheckIfSure(false)}} className="no-btn">No</button></div> : <button className='delete-all-btn' onClick={ openDeleteModal}>Delete All</button>
+          checkIfSure ? <div style={{backgroundColor: "red", border: "solid 4px orangered", borderRadius: "4px"}}><h3>Are you sure you want do delete all grocries</h3><button onClick={deleteAll} className="yes-btn">Yes</button><button onClick={() => {return setCheckIfSure(false)}} className="no-btn">No</button></div> : <button className='delete-all-btn' onClick={() => {setCheckIfSure(true)}}>Delete All</button>
         }
       </div>
     </div>
