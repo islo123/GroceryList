@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import { FaTrashAlt, FaSyncAlt } from "react-icons/fa"
 import { FaEdit } from "react-icons/fa"
+
 function App() {
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -13,6 +14,7 @@ function App() {
 
   const api = axios.create({
     baseURL: "https://morning-hollows-76146.herokuapp.com/list"
+    // baseURL: "http://localhost:3001/list"
   })
 
   const onPageOpenGetList = async function (){     
@@ -49,14 +51,12 @@ function App() {
   }
 
   const updateListItem = async function(_id, isEdited){
-    let res = await api.patch(`/${_id}`, {name: updatedText, isEdited: !isEdited})
+    let res = await api.put(`/${_id}`, { name: updatedText, isEdited: !isEdited})
     if(updatedText){
-      setData(function(){
+      setData(() => {
         return [...data, res.data]
-      })
-    }
+      })    }
     setUpdatedText("")
-    
   }
 
   const changeEdit = async (_id, isEdited) => {
@@ -96,9 +96,9 @@ function App() {
             <h3 id='name' className='name'>{item.name}</h3>
             <div>
               {
-                item.isEdited ? <form onSubmit={() => { return updateListItem(item._id, item.isEdited)}}>
-                <input required type='text' value={updatedText} onChange={(e) => {return setUpdatedText(e.target.value)}}/>
-                <button className='done-btn'>Done</button></form>: <button className='edit-btn' onClick={() => { return changeEdit(item._id, item.isEdited)}}>Edit <FaEdit/></button>
+                item.isEdited ? <form onSubmit={(e) => e.preventDefault()}>
+                <input required type='text' value={updatedText} onChange={(e) => setUpdatedText(e.target.value)}/>
+                <button type='submit' onClick={() => { return updateListItem(item._id, item.isEdited)}} className='done-btn'>Done</button></form>: <button className='edit-btn' onClick={() => { return changeEdit(item._id, item.isEdited)}}>Edit <FaEdit/></button>
               }
             </div>
             <div>
