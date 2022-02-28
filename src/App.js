@@ -13,7 +13,7 @@ function App() {
   const [checkIfSure, setCheckIfSure] = useState(false)
 
   const api = axios.create({
-    baseURL: "https://morning-hollows-76146.herokuapp.com/list"
+    baseURL: "https://grocery-list27.herokuapp.com/list"
     // baseURL: "http://localhost:3001/list"
   })
 
