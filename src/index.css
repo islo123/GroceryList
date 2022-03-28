@@ -14,3 +14,10 @@
       transform: rotate(360deg);
     }
   }
+img {
+  height: 100px;
+  width: 100%;
+  object-fit: cover;
+  object-position: 95% 95%;
+  border-radius: 20%;
+}
